@@ -51,8 +51,16 @@ class CacheHelper {
     }
   }
 
+  // Open Hive Box
+  Future<Box> _openBoxIfNeeded(String boxName) async {
+    if (!Hive.isBoxOpen(boxName)) {
+      return await Hive.openBox(boxName);
+    }
+    return Hive.box(boxName);
+  }
+
   // Retrieve data
-  dynamic getData(String key) {
+  Future<dynamic> getData(String key) async {
     if (_prefs == null) {
       throw Exception('CacheHelper not initialized');
     }
@@ -61,12 +69,10 @@ class CacheHelper {
     if (value != null) {
       return value;
     } else {
-      // Check in Hive for complex data
       try {
-        var box = Hive.box('complexDataBox');
+        var box = await _openBoxIfNeeded('complexDataBox');
         return box.get(key);
       } catch (e) {
-        // Handle any exceptions
         print('Error retrieving data from Hive: $e');
         return null;
       }
@@ -82,18 +88,17 @@ class CacheHelper {
     if (_prefs!.containsKey(key)) {
       return _prefs!.remove(key);
     } else {
-      // Remove from Hive if exists
       try {
-        var box = Hive.box('complexDataBox');
+        var box = await _openBoxIfNeeded('complexDataBox');
         if (box.containsKey(key)) {
           box.delete(key);
           return true;
         }
         return false;
       } catch (e) {
-        // Handle any exceptions
         print('Error deleting data from Hive: $e');
         return false;
       }
     }
-  }}
+  }
+}
