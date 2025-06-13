@@ -46,7 +46,8 @@ Widget buildAppRoot(BuildContext context) {
               theme: appTheme(),
               darkTheme: darkTheme(),
               themeMode: themeState.themeMode,
-              initialRoute: OnboardingView.routeName,
+              initialRoute:HomeView.routeName,
+              // OnboardingView.routeName,
               routes: {
                 HomeView.routeName: (context) => const HomeView(),
                 LayoutView.routeName: (context) => const LayoutView(),
