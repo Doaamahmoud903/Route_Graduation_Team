@@ -20,4 +20,6 @@ class LocaleCubit extends Cubit<ChangeLocaleState> {
     ApiService.setLanguage(languageCode);
     emit(ChangeLocaleState(locale: Locale(languageCode)));
   }
+  String get currentLanguageCode => state.locale.languageCode;
+
 }

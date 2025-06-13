@@ -12,6 +12,7 @@ import '../../features/home/presentation/views/home_view.dart';
 import '../../features/layout/presentation/manager/layout_cubit.dart';
 import '../../l10n/app_localizations.dart';
 import '../localization/locale_cubit/locale_cubit.dart';
+import '../routes/app_routes.dart';
 import '../theming/app_theme.dart';
 import '../theming/theme/theme_cubit.dart';
 
@@ -46,15 +47,15 @@ Widget buildAppRoot(BuildContext context) {
               theme: appTheme(),
               darkTheme: darkTheme(),
               themeMode: themeState.themeMode,
-              initialRoute: OnboardingView.routeName,
+              initialRoute: AppRoutes.onboardingRoute,
               routes: {
-                HomeView.routeName: (context) => const HomeView(),
-                LayoutView.routeName: (context) => const LayoutView(),
-                OnboardingView.routeName: (context) => const OnboardingView(),
-                ForgotPasswordView.routeName:
+                AppRoutes.homeRoute: (context) => const HomeView(),
+                AppRoutes.layoutRoute: (context) => const LayoutView(),
+                AppRoutes.onboardingRoute: (context) => const OnboardingView(),
+                AppRoutes.forgotPasswordRoute:
                     (context) => const ForgotPasswordView(),
-                LoginView.routeName: (context) => const LoginView(),
-                SignupView.routeName: (context) => const SignupView(),
+                AppRoutes.loginRoute: (context) => const LoginView(),
+                AppRoutes.signupRoute: (context) => const SignupView(),
                 BrowseView.routeName: (context) => const BrowseView(),
               },
             );

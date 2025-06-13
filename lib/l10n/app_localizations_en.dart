@@ -209,4 +209,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loading => 'Loading...';
+
+  @override
+  String get explore => 'Explore';
+
+  @override
+  String get phone => 'Phone';
 }

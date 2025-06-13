@@ -1,29 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-class DioFactory {
-  DioFactory._();
+@module
+abstract class DioFactory {
 
-  static Dio? dio;
+  @lazySingleton
+  Dio dio() {
+    final dio = Dio();
+    const timeout = Duration(seconds: 30);
+    dio.options.connectTimeout = timeout;
+    dio.options.receiveTimeout = timeout;
 
-  static Dio getDio() {
-    Duration timeOut = const Duration(seconds: 30);
-
-    if (dio == null) {
-      dio = Dio();
-      dio!
-        ..options.connectTimeout = timeOut
-        ..options.receiveTimeout = timeOut;
-      addDioInterceptor();
-
-      return dio!;
-    } else {
-      return dio!;
-    }
-  }
-
-  static void addDioInterceptor() {
-    dio?.interceptors.add(
+    dio.interceptors.add(
       PrettyDioLogger(
         requestBody: true,
         requestHeader: true,
@@ -31,5 +20,7 @@ class DioFactory {
         maxWidth: 50,
       ),
     );
+
+    return dio;
   }
 }

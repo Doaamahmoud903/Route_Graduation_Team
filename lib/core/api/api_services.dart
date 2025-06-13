@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movie_app/core/api/api_constant.dart';
 import '../localization/langauge_cache_helper/language_cache_helper.dart';
+// import 'api_constant.dart';
 
+@injectable
 class ApiService {
   static const String _baseUrl = ApiConstant.baseUrl;
   final Dio _dio;
@@ -22,20 +25,25 @@ class ApiService {
   // Helper method to add token to the headers if provided
   Options _getOptionsWithToken([String? token]) {
     if (token != null) {
-      return Options(headers: {'token': token});
+      return Options(headers: {
+        "Authorization": "Bearer $token", // Add Bearer Token
+        "Content-Type": "application/json",
+      },);
     }
     return Options();
   }
 
   // GET
   Future<Map<String, dynamic>> get({
+    String? baseUrl,
     required String endPoint,
     String? token,
     Map<String, dynamic>? queryParameters,
   }) async {
     var options = _getOptionsWithToken(token);
+    var url = '${baseUrl ?? ApiConstant.baseUrl}$endPoint';
     var response = await _dio.get(
-      '$_baseUrl$endPoint',
+      url,
       options: options,
       queryParameters: queryParameters,
     );
@@ -44,14 +52,16 @@ class ApiService {
 
   // POST
   Future<Map<String, dynamic>> post({
+    String? baseUrl,
     required String endPoint,
     required dynamic data,
     String? token,
     Map<String, dynamic>? queryParameters,
   }) async {
     var options = _getOptionsWithToken(token);
+    var url = '${baseUrl ?? ApiConstant.baseUrl}$endPoint';
     var response = await _dio.post(
-      '$_baseUrl$endPoint',
+      url,
       data: data,
       options: options,
       queryParameters: queryParameters,
@@ -62,14 +72,16 @@ class ApiService {
   //Upload File
 
   Future<Map<String, dynamic>> uploadFile({
+    String? baseUrl,
     required String endPoint,
     required FormData data,
     String? token,
     Map<String, dynamic>? queryParameters,
   }) async {
     var options = _getOptionsWithToken(token);
+    var url = '${baseUrl ?? ApiConstant.baseUrl}$endPoint';
     var response = await _dio.post(
-      '$_baseUrl$endPoint',
+      url,
       data: data,
       options: options,
       queryParameters: queryParameters,
@@ -79,13 +91,15 @@ class ApiService {
 
   // DELETE
   Future<Map<String, dynamic>> delete({
+    String? baseUrl,
     required String endPoint,
     String? token,
     Map<String, dynamic>? queryParameters,
   }) async {
     var options = _getOptionsWithToken(token);
+    var url = '${baseUrl ?? ApiConstant.baseUrl}$endPoint';
     var response = await _dio.delete(
-      '$_baseUrl$endPoint',
+      url,
       options: options,
       queryParameters: queryParameters,
     );
@@ -94,14 +108,16 @@ class ApiService {
 
   // PUT
   Future<Map<String, dynamic>> put({
+    String? baseUrl,
     required String endPoint,
     required Map<String, dynamic> data,
     String? token,
     Map<String, dynamic>? queryParameters,
   }) async {
     var options = _getOptionsWithToken(token);
+    var url = '${baseUrl ?? ApiConstant.baseUrl}$endPoint';
     var response = await _dio.put(
-      '$_baseUrl$endPoint',
+      url,
       data: data,
       options: options,
       queryParameters: queryParameters,

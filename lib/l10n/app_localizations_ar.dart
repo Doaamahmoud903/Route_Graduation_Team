@@ -209,4 +209,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loading => 'جاري التحميل...';
+
+  @override
+  String get explore => 'استكشاف';
+
+  @override
+  String get phone => 'رقم الهاتف';
 }
