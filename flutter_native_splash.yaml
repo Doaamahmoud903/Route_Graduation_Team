@@ -1,14 +1,14 @@
 flutter_native_splash:
-  image: "assets/images/logo.png"
+  image: "assets/images/appLogo.png"
   color: "#FFFFFF"
-  color_dark: "#101127"
+  color_dark: "#121312"
   branding: "assets/images/brand.png"
 
 
   android_12:
-    image: "assets/images/logo.png"
+    image: "assets/images/appLogo.png"
     color: "#FFFFFF"
-    color_dark: "#101127"
+    color_dark: "#121312"
     branding: "assets/images/brand.png"
 
 

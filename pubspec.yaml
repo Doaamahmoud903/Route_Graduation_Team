@@ -51,7 +51,7 @@ dependencies:
   google_sign_in: ^6.3.0
   carousel_slider: ^5.0.0
   injectable: ^2.5.0
-
+  flutter_secure_storage: ^9.2.4
 
 
 dev_dependencies:

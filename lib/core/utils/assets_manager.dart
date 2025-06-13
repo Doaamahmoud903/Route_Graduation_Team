@@ -17,7 +17,7 @@ class AssetManager{
   static const String profile9 = "assets/images/gamer9.png";
   static const String history = "assets/images/file.png";
   static const String watchList = "assets/images/menu.png";
-  static const String exit = "assets/images/exit.png";
+  static const String exitLogo = "assets/images/exit_logo.png";
   static const String home = "assets/images/home.png";
   static const String search = "assets/images/search.png";
   static const String account = "assets/images/Profiel.png";

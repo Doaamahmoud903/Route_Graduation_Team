@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app/core/theming/color_manager.dart';
 
 class Styles {
   static TextStyle textStyle12w4 = GoogleFonts.playpenSans(
@@ -65,5 +66,19 @@ class Styles {
   static TextStyle textStyle20w7 = GoogleFonts.playpenSans(
     fontSize: 20,
     fontWeight: FontWeight.w700,
+  );
+  static TextStyle textStyle20w4 = GoogleFonts.playpenSans(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle textStyle20w4White = GoogleFonts.playpenSans(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: ColorManager.whiteColor
+  );
+  static TextStyle textStyle16w4Orange = GoogleFonts.playpenSans(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: ColorManager.orangeColor
   );
 }

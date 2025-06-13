@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/features/account/presentation/views/account_view.dart';
+import 'package:movie_app/features/account/presentation/views/profile_view.dart';
 import 'package:movie_app/features/browse/presentation/views/browse_view.dart';
 import 'package:movie_app/features/search/presentation/views/search_view.dart';
 import '../../../home/presentation/views/home_view.dart';
@@ -15,7 +15,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
     const HomeView(),
     const SearchView(),
     const BrowseView(),
-    const AccountView(),
+    const ProfileView(),
   ];
 
   int currentIndex = 0;
