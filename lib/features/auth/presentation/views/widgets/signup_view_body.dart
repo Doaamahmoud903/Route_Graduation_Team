@@ -11,6 +11,7 @@ import 'package:movie_app/features/auth/presentation/manager/signup/signup_view_
 import 'package:movie_app/features/auth/presentation/views/login_view.dart';
 import 'package:movie_app/l10n/app_localizations.dart';
 import '../../../../../core/localization/locale_cubit/locale_cubit.dart';
+import '../../../../../core/routes/app_routes.dart';
 import '../../../../../core/theming/color_manager.dart';
 import '../../../../../core/utils/assets_manager.dart';
 import '../../../../../core/widgets/custom_button.dart';
@@ -39,6 +40,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           ToastUtils.showErrorToast(state.errorMsg.first);
         }else if(state is SignupSuccessState){
           ToastUtils.showSuccessToast(AppLocalizations.of(context)!.register_success);
+          Navigator.of(context).pushNamed(AppRoutes.homeRoute);
         }
       },
       child: Scaffold(

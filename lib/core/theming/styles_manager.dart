@@ -42,17 +42,17 @@ class Styles {
     fontSize: 18,
     fontWeight: FontWeight.w500,
   );
-  static TextStyle textStyle84w7 = GoogleFonts.playpenSans(
+  static TextStyle textStyle18w7 = GoogleFonts.playpenSans(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle textStyle24w7 = GoogleFonts.playpenSans(
     fontSize: 24,
     fontWeight: FontWeight.w700,
   );
   static TextStyle textStyle24w5 = GoogleFonts.playpenSans(
     fontSize: 24,
     fontWeight: FontWeight.w500,
-  );
-  static TextStyle textStyle24w7 = GoogleFonts.playpenSans(
-    fontSize: 24,
-    fontWeight: FontWeight.w700,
   );
   static TextStyle textStyle22w5 = GoogleFonts.playpenSans(
     fontSize: 22,

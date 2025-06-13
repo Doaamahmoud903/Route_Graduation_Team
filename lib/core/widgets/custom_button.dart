@@ -40,7 +40,7 @@ class CustomButton extends StatelessWidget {
                 Image.asset(logo!),
                 SizedBox(width: width*0.01,),
                 Text(btnName,
-                  style: Styles.textStyle20w7.copyWith(
+                  style: Styles.textStyle18w7.copyWith(
                     color: textColor,
                   ),
                 ),
