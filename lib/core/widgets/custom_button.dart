@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theming/color_manager.dart';
 import '../theming/styles_manager.dart';
 
@@ -34,7 +35,7 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: logo != null ?ll
+        child: logo != null
                 ? FittedBox(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
