@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movie_app/core/routes/app_routes.dart';
 import 'package:movie_app/features/auth/presentation/manager/login/login_states.dart';
+
 import '../../../../../core/cach_helper/cach_helper.dart';
 import '../../../../../core/utils/toast_utils.dart';
 import '../../../../../core/utils/validators.dart';
@@ -76,8 +77,7 @@ class LoginViewModel extends Cubit<LoginStates> {
 
       ToastUtils.showSuccessToast("Login with Google successful");
       await CacheHelper().saveData("token", googleAuth.idToken);
-
-      Navigator.of(context).pushNamed(AppRoutes.homeRoute);
+      Navigator.of(context).pushNamed(AppRoutes.profileRoute);
     } catch (e) {
       ToastUtils.showErrorToast("Google sign-in error: $e");
     }

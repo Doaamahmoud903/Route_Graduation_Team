@@ -1,40 +1,63 @@
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:movie_app/core/api/api_constant.dart'; // Unused import
-import 'package:movie_app/core/api/api_services.dart';
+import 'package:movie_app/core/api/api_constant.dart';
 import 'package:movie_app/features/account/data/data_sources/profile_remote_data_source.dart';
 import 'package:movie_app/features/account/data/models/ProfileResponse.dart';
-import '../../../../core/services/secure_storage.dart';
-import 'package:flutter/material.dart';
+
+import '../../../../core/api/api_services.dart';
+import '../../../../core/cach_helper/cach_helper.dart';
 
 
 @Injectable(as: ProfileRemoteDataSource)
-class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource{
+class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   final ApiService apiService;
-  final SecureStorage secureStorage;
-  ProfileRemoteDataSourceImpl({required this.apiService, required this.secureStorage});
+  final CacheHelper cacheHelper;
+
+  ProfileRemoteDataSourceImpl(
+      {required this.apiService, required this.cacheHelper});
 
   @override
   Future<ProfileResponse> getProfile() async {
     try {
-      final token = await secureStorage.getToken();
-      debugPrint('ProfileRemoteDataSourceImpl: Attempting to fetch profile with token: $token'); // Important debug line
+      final token = await cacheHelper.getData("token");
+      debugPrint(
+          'ProfileRemoteDataSourceImpl: Attempting to fetch profile with token: ${token !=
+              null ? "exists" : "null"}');
 
       if (token == null || token.isEmpty) {
-        throw Exception('Authentication token not found. Please log in.');
+        await cacheHelper.removeData("token");
+        throw Exception(
+            'Authentication token not found or invalid. Please log in.');
       }
 
       final response = await apiService.get(
+        baseUrl: ApiConstant.baseUrlPostman,
         endPoint: ApiConstant.userProfileEndPoint,
-        token: token, // Pass the token here
+        token: token,
       );
 
-      if (response['status'] == true) {
+      debugPrint(
+          'ProfileRemoteDataSourceImpl: Get profile API response: $response');
+
+      if (response['message'] == "Profile fetched successfully" &&
+          response['data'] != null) {
         return ProfileResponse.fromJson(response);
       } else {
-        throw Exception(response['message'] ?? 'Failed to fetch profile data.');
+        final errorMessage = response['message'] ??
+            'Failed to fetch profile data with unexpected response.';
+        debugPrint(
+            'ProfileRemoteDataSourceImpl: Unexpected profile API response: $errorMessage');
+        throw Exception(errorMessage);
       }
-    } catch (e) {
-      debugPrint('ProfileRemoteDataSourceImpl: Error fetching profile: $e'); // Log the error
+    } on Exception catch (e) {
+      debugPrint('ProfileRemoteDataSourceImpl: Error fetching profile: $e');
+      if (e.toString().contains('token') ||
+          e.toString().contains('unauthorized') ||
+          e.toString().contains('expired')) {
+        debugPrint(
+            'ProfileRemoteDataSourceImpl: Error suggests token issue. Deleting token.');
+        await cacheHelper.removeData("token");
+      }
       rethrow;
     }
   }
@@ -47,8 +70,19 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource{
     required int avaterId,
   }) async {
     try {
-      final token = await secureStorage.getToken();
+      final token = await cacheHelper.getData("token");
+      debugPrint(
+          'ProfileRemoteDataSourceImpl: Attempting to update profile with token: ${token !=
+              null ? "exists" : "null"}');
+
+      if (token == null || token.isEmpty) {
+        await cacheHelper.removeData("token");
+        throw Exception(
+            'Authentication token not found or invalid. Please log in to update.');
+      }
+
       final response = await apiService.patch(
+        baseUrl: ApiConstant.baseUrlPostman,
         endPoint: ApiConstant.updateUserProfileEndPoint,
         data: {
           'name': name,
@@ -59,12 +93,24 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource{
         token: token,
       );
 
-      if (response['status'] == 'success' && response['data'] != null) {
-        return ProfileResponse.fromJson(response['data']);
+      debugPrint(
+          'ProfileRemoteDataSourceImpl: Update profile API response: $response');
+
+      if (response['status'] == true) {
+        return ProfileResponse.fromJson(response);
       } else {
-        throw Exception(response['message'] ?? 'Failed to update profile.');
+        final errorMessage = response['message'] ?? 'Failed to update profile.';
+        debugPrint(
+            'ProfileRemoteDataSourceImpl: API returned status false on update: $errorMessage');
+        throw Exception(errorMessage);
       }
-    } catch (e) {
+    } on Exception catch (e) {
+      debugPrint('ProfileRemoteDataSourceImpl: Error updating profile: $e');
+      if (e.toString().contains('token') ||
+          e.toString().contains('unauthorized') ||
+          e.toString().contains('expired')) {
+        await cacheHelper.removeData("token");
+      }
       rethrow;
     }
   }
@@ -72,13 +118,41 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource{
   @override
   Future<Map<String, dynamic>> deleteProfile() async {
     try {
-      final token = await secureStorage.getToken();
+      final token = await cacheHelper.getData("token");
+      debugPrint(
+          'ProfileRemoteDataSourceImpl: Attempting to delete profile with token: ${token !=
+              null ? "exists" : "null"}');
+
+      if (token == null || token.isEmpty) {
+        await cacheHelper.removeData("token");
+        throw Exception(
+            'Authentication token not found or invalid. Please log in to delete profile.');
+      }
+
       final response = await apiService.delete(
+        baseUrl: ApiConstant.baseUrlPostman,
         endPoint: ApiConstant.deleteUserProfileEndPoint,
         token: token,
       );
-      return response;
-    } catch (e) {
+
+      debugPrint(
+          'ProfileRemoteDataSourceImpl: Delete profile API response: $response');
+
+      if (response['status'] == true) {
+        return response;
+      } else {
+        final errorMessage = response['message'] ?? 'Failed to delete profile.';
+        debugPrint(
+            'ProfileRemoteDataSourceImpl: API returned status false on delete: $errorMessage');
+        throw Exception(errorMessage);
+      }
+    } on Exception catch (e) {
+      debugPrint('ProfileRemoteDataSourceImpl: Error deleting profile: $e');
+      if (e.toString().contains('token') ||
+          e.toString().contains('unauthorized') ||
+          e.toString().contains('expired')) {
+        await cacheHelper.removeData("token");
+      }
       rethrow;
     }
   }

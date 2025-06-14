@@ -6,6 +6,7 @@ import 'package:movie_app/core/errors/failure.dart';
 import 'package:movie_app/features/auth/data/data_sources/remote/auth_remote_data_source.dart';
 import 'package:movie_app/features/auth/data/models/auth_response_dto.dart';
 import 'package:movie_app/features/auth/data/models/signup_response_dto.dart';
+
 import '../../../../../../core/api/api_services.dart';
 import '../../../../../../core/errors/model/api_error_model.dart';
 
@@ -51,7 +52,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
       String token
       ) async{
     try{
-      final response = await apiService.put(
+      final response = await apiService.patch(
           baseUrl: ApiConstant.baseUrlPostman,
           endPoint: ApiConstant.resetPassword,
           data: {

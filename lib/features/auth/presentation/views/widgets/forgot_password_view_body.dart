@@ -3,8 +3,9 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:movie_app/core/di/di.dart';
 import 'package:movie_app/core/utils/validators.dart';
 import 'package:movie_app/features/auth/presentation/manager/reset_password/reset_password_view_model.dart';
-import '../../../../../core/utils/assets_manager.dart';
+
 import '../../../../../core/theming/color_manager.dart';
+import '../../../../../core/utils/assets_manager.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_text_field.dart';
 
@@ -58,8 +59,6 @@ class ForgotPasswordViewBody extends StatelessWidget {
                   textColor: ColorManager.grey,
                   onPressed: (){}
               ),
-
-
 
             ],
           ),

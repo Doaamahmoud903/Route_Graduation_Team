@@ -6,4 +6,6 @@ class AppRoutes{
   static const String loginRoute = "LoginView";
   static const String signupRoute = "SignupView";
   static const String movieRoute = "MovieView";
+  static const String profileRoute = "ProfileView";
+  static const String resetPasswordRoute = 'resetPasswordScreen';
 }

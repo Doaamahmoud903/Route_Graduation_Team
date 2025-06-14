@@ -34,19 +34,19 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: logo != null ?
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(logo!),
-            SizedBox(width: width*0.01,),
-            Text(btnName,
-              style: Styles.textStyle20w4.copyWith(
-                color: textColor,
-              ),
-            ),
-          ],
-        )
+        child: logo != null ?ll
+                ? FittedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(logo!),
+                      SizedBox(width: width * 0.01),
+                      Text(
+                        btnName,
+                        style: Styles.textStyle20w4.copyWith(color: textColor),
+                      ),
+                    ],
+                  ))
             :Text(btnName,
           style: Styles.textStyle20w4.copyWith(
             color: textColor,

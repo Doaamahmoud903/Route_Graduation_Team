@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movie_app/core/api/api_constant.dart';
+
 import '../localization/langauge_cache_helper/language_cache_helper.dart';
 // import 'api_constant.dart';
 
@@ -126,7 +127,8 @@ class ApiService {
   }
 
   // PATCH
-  Future<Map<String, dynamic>> patch({
+  /*Future<Map<String, dynamic>> patch({
+    String? baseUrl,
     required String endPoint,
     required Map<String, dynamic> data,
     String? token,
@@ -141,5 +143,23 @@ class ApiService {
     );
     return response.data;
 
-}
+}*/
+  Future<Map<String, dynamic>> patch({
+    String? baseUrl,
+    required String endPoint,
+    required Map<String, dynamic> data,
+    String? token,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    var options = _getOptionsWithToken(token);
+    // FIX: Use the provided baseUrl or default, similar to other methods.
+    var url = '${baseUrl ?? ApiConstant.baseUrl}$endPoint';
+    var response = await _dio.patch(
+      url, // Use the correctly constructed URL
+      data: data,
+      options: options,
+      queryParameters: queryParameters,
+    );
+    return response.data;
+  }
 }

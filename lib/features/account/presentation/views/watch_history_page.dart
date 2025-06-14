@@ -19,8 +19,7 @@ class _WatchHistoryPageState extends State<WatchHistoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    // This widget now directly provides the content for a tab
-    return Center(child: Image.asset(AssetManager.empty)); // Placeholder
+    return Center(child: Image.asset(AssetManager.empty));
   }
 }
 

@@ -12,10 +12,8 @@ class ApiConstant{
  static const String getAllFav = "/favorites/all";
  static const String profile = "/profile";
 
- static const String profileBaseUrl = "https://route-movie-apis.vercel.app/";
  //profile
- static const String userProfileEndPoint = "profile";
- static const String updateUserProfileEndPoint = "profile/update";
- static const String deleteUserProfileEndPoint = "profile/delete";
-
+  static const String userProfileEndPoint = "/profile";
+  static const String updateUserProfileEndPoint = "/profile";
+  static const String deleteUserProfileEndPoint = "/profile";
 }

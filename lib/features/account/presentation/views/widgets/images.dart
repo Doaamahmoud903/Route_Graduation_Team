@@ -12,3 +12,22 @@ List<Map<String, dynamic>> profileImages = [
   {'path':AssetManager.profile9, 'id': 9},
 
 ];
+
+class Images {
+  static const String defaultAvatar = AssetManager.profile1;
+
+  static String getAvatarPath(int avatarId) {
+    if (avatarId == 0) {
+      return defaultAvatar;
+    }
+    try {
+      final avatarMap = profileImages.firstWhere((element) =>
+      element['id'] == avatarId);
+      return avatarMap['path'] as String;
+    } catch (e) {
+      return defaultAvatar;
+    }
+  }
+
+  static List<Map<String, dynamic>> get allProfileImages => profileImages;
+}

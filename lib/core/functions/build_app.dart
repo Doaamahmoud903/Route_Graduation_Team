@@ -2,12 +2,16 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/features/auth/presentation/views/forgot_password_view.dart';
 import 'package:movie_app/features/auth/presentation/views/login_view.dart';
 import 'package:movie_app/features/auth/presentation/views/signup_view.dart';
 import 'package:movie_app/features/browse/presentation/views/browse_view.dart';
 import 'package:movie_app/features/layout/presentation/views/layout_view.dart';
 import 'package:movie_app/features/onboarding/presentation/views/onboarding_view.dart';
+
+import '../../features/account/presentation/views/profile_view.dart';
+import '../../features/account/presentation/views/reset_password.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/layout/presentation/manager/layout_cubit.dart';
 import '../../l10n/app_localizations.dart';
@@ -15,7 +19,6 @@ import '../localization/locale_cubit/locale_cubit.dart';
 import '../routes/app_routes.dart';
 import '../theming/app_theme.dart';
 import '../theming/theme/theme_cubit.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildAppRoot(BuildContext context) {
   return MultiBlocProvider(
@@ -52,8 +55,13 @@ Widget buildAppRoot(BuildContext context) {
                     theme: appTheme(),
                     darkTheme: darkTheme(),
                     themeMode: themeState.themeMode,
-                    initialRoute: AppRoutes.onboardingRoute,
+                    initialRoute: AppRoutes.loginRoute,
+
+                    ///AppRoutes.onboardingRoute,
                     routes: {
+                      AppRoutes.profileRoute: (context) => const ProfileView(),
+                      AppRoutes.resetPasswordRoute: (
+                          context) => const ResetPasswordScreen(),
                       AppRoutes.homeRoute: (context) => const HomeView(),
                       AppRoutes.onboardingRoute: (
                           context) => const OnboardingView(),

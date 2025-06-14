@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theming/color_manager.dart';
 import '../theming/styles_manager.dart';
 
@@ -61,6 +62,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: ColorManager.orangeColor,
       maxLength: widget.maxLength,
       readOnly: widget.readOnly ?? false,
       maxLines: widget.isPassword ? 1 : widget.maxLines,
