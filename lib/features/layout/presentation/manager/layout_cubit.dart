@@ -14,7 +14,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
   final List<Widget> bottomScreens = [
     const HomeView(),
     const SearchView(),
-    const BrowseView(),
+    BrowseView(),
     const ProfileView(),
   ];
 

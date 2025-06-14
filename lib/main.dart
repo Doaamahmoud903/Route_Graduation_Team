@@ -13,4 +13,5 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   configureDependencies();
   runApp(const MovieApp());
+
 }

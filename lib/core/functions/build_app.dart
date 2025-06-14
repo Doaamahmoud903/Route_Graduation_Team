@@ -11,6 +11,7 @@ import 'package:movie_app/features/onboarding/presentation/views/onboarding_view
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/layout/presentation/manager/layout_cubit.dart';
 import '../../l10n/app_localizations.dart';
+import '../cach_helper/cach_helper.dart';
 import '../localization/locale_cubit/locale_cubit.dart';
 import '../routes/app_routes.dart';
 import '../theming/app_theme.dart';
@@ -18,6 +19,8 @@ import '../theming/theme/theme_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildAppRoot(BuildContext context) {
+  final token = CacheHelper().getData("token");
+  print("access TOKEN >>><<<<< $token");
   return MultiBlocProvider(
     providers: [
       BlocProvider(create: (_) => LocaleCubit()),
@@ -33,41 +36,43 @@ Widget buildAppRoot(BuildContext context) {
           enabled: false,
           builder: (context) {
             return ScreenUtilInit(
-                designSize: const Size(430, 932),
-                minTextAdapt: true,
-                splitScreenMode: true,
-                builder: (context , child) {
-                  return MaterialApp(
-                    locale: (localeState is ChangeLocaleState)
-                        ? localeState.locale
-                        : const Locale('en'),
-                    supportedLocales: const [Locale("en"), Locale("ar")],
-                    localizationsDelegates: const [
-                      AppLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                    ],
-                    debugShowCheckedModeBanner: false,
-                    theme: appTheme(),
-                    darkTheme: darkTheme(),
-                    themeMode: themeState.themeMode,
-                    initialRoute: AppRoutes.onboardingRoute,
-                    routes: {
-                      AppRoutes.homeRoute: (context) => const HomeView(),
-                      AppRoutes.onboardingRoute: (
-                          context) => const OnboardingView(),
-                      AppRoutes.forgotPasswordRoute: (
-                          context) => const ForgotPasswordView(),
-                      AppRoutes.loginRoute: (context) => const LoginView(),
-                      AppRoutes.signupRoute: (context) => const SignupView(),
-                      AppRoutes.movieRoute: (context) =>  const BrowseView(),
-                      AppRoutes.layoutRoute: (context) => const LayoutView(),
-
-                    },
-
-                  );
-                }
+              designSize: const Size(430, 932),
+              minTextAdapt: true,
+              splitScreenMode: true,
+              builder: (context, child) {
+                return MaterialApp(
+                  locale:
+                      (localeState is ChangeLocaleState)
+                          ? localeState.locale
+                          : const Locale('en'),
+                  supportedLocales: const [Locale("en"), Locale("ar")],
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  debugShowCheckedModeBanner: false,
+                  theme: appTheme(),
+                  darkTheme: darkTheme(),
+                  themeMode: themeState.themeMode,
+                  initialRoute:
+                      token != null
+                          ? AppRoutes.layoutRoute
+                          : AppRoutes.onboardingRoute,
+                  routes: {
+                    AppRoutes.homeRoute: (context) => const HomeView(),
+                    AppRoutes.onboardingRoute:
+                        (context) => const OnboardingView(),
+                    AppRoutes.forgotPasswordRoute:
+                        (context) => const ForgotPasswordView(),
+                    AppRoutes.loginRoute: (context) => const LoginView(),
+                    AppRoutes.signupRoute: (context) => const SignupView(),
+                    AppRoutes.browseRoute: (context) => BrowseView(),
+                    AppRoutes.layoutRoute: (context) => const LayoutView(),
+                  },
+                );
+              },
             );
           },
         );
