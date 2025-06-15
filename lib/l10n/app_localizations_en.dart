@@ -215,4 +215,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phone => 'Phone';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get logout_ques => 'Are you sure you want to logout?';
 }

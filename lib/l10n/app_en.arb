@@ -67,5 +67,7 @@
   "or" : "OR",
   "loading" : "Loading...",
   "explore": "Explore",
-  "phone" : "Phone"
+  "phone" : "Phone",
+  "cancel" : "Cancel",
+  "logout_ques" : "Are you sure you want to logout?"
 }

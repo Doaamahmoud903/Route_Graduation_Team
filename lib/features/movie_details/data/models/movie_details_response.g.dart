@@ -46,13 +46,13 @@ Map<String, dynamic> _$MetaToJson(Meta instance) => <String, dynamic>{
 
 MovieData _$MovieDataFromJson(Map<String, dynamic> json) => MovieData(
   movie:
-      json['browse'] == null
+      json['movie'] == null
           ? null
-          : MovieDetails.fromJson(json['browse'] as Map<String, dynamic>),
+          : MovieDetails.fromJson(json['movie'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$MovieDataToJson(MovieData instance) => <String, dynamic>{
-  'browse': instance.movie,
+  'movie': instance.movie,
 };
 
 MovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) => MovieDetails(

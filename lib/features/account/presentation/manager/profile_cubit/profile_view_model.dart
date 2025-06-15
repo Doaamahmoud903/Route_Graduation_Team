@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movie_app/features/account/presentation/manager/profile_cubit/profile_states.dart';
 import 'package:flutter/foundation.dart'; // Import for debugPrint
-
 import '../../../../../core/services/secure_storage.dart';
 import '../../../../../core/utils/toast_utils.dart';
 import '../../../data/models/ProfileResponse.dart';

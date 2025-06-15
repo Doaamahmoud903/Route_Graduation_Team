@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/features/account/presentation/views/profile_view.dart';
-import 'package:movie_app/features/browse/presentation/views/browse_view.dart';
 import 'package:movie_app/features/search/presentation/views/search_view.dart';
+import '../../../browse/presentation/views/browse_view.dart';
 import '../../../home/presentation/views/home_view.dart';
 import 'layout_states.dart';
 
@@ -13,8 +13,8 @@ class LayoutCubit extends Cubit<LayoutStates> {
 
   final List<Widget> bottomScreens = [
     const HomeView(),
-    const SearchView(),
-    BrowseView(),
+     SearchView(),
+     BrowseView(),
     const ProfileView(),
   ];
 
@@ -28,4 +28,6 @@ class LayoutCubit extends Cubit<LayoutStates> {
     currentIndex = 2;
     emit(LayoutChangeBottomNavState());
   }
+
+
 }

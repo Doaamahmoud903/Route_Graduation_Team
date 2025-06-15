@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/core/widgets/custom_button.dart';
 import 'package:movie_app/features/browse/presentation/manager/movie_states.dart';
 import 'package:movie_app/features/browse/presentation/manager/movie_view_model.dart';
 import 'package:movie_app/features/browse/presentation/views/widgets/custom_tab_item.dart';
@@ -7,6 +8,7 @@ import 'package:movie_app/features/movie_details/presentation/views/movie_detail
 import '../../../../../core/utils/assets_manager.dart';
 import '../../../../../core/utils/types.dart';
 import '../../../../../core/widgets/custom_loding_indicator.dart';
+import '../../../../account/presentation/views/widgets/logout_dialog.dart';
 
 class BrowseViewBody extends StatefulWidget {
   const BrowseViewBody({super.key});
@@ -21,15 +23,23 @@ class _BrowseViewBodyState extends State<BrowseViewBody> with SingleTickerProvid
   void initState() {
     super.initState();
     _tabController = TabController(length: genres.length, vsync: this);
+
+    context.read<MovieViewModel>().getMovie(
+      genre: genres[0].toLowerCase(),
+    );
+
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
         setState(() {});
-        context.read<MovieViewModel>().getMovie(
-          genre: genres[_tabController.index].toLowerCase(),
-        );
+        Future.microtask(() {
+          context.read<MovieViewModel>().getMovie(
+            genre: genres[_tabController.index].toLowerCase(),
+          );
+        });
       }
     });
   }
+
 
   @override
   void dispose() {

@@ -23,8 +23,8 @@ class FavouriteViewModel extends Cubit<FavouriteStates> {
   Future<void> addToFav(String movieId, String name, double rating, String imageURL, String year) async {
     emit(FavouriteLoading());
     final token = await CacheHelper().getData("token");
-
-    if (isMovieFav) {
+    print(isMovieFav);
+    if (isMovieFav == true) {
       await delFromFav(movieId);
     } else {
       final response = await addToFavUseCase.call(token, movieId, name, rating, imageURL, year);

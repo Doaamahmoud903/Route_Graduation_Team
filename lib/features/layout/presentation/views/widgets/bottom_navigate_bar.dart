@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/utils/assets_manager.dart';
+
 import '../../manager/layout_cubit.dart';
 import '../../manager/layout_states.dart';
 

@@ -15,8 +15,8 @@ import '../../../domain/usecases/login_use_case.dart';
 class LoginViewModel extends Cubit<LoginStates> {
   LoginUseCase loginUseCase;
   LoginViewModel({required this.loginUseCase}) :super(LoginIntState());
-  final emailController = TextEditingController(text: "dodoo@gmail.com");
-  final passwordController = TextEditingController(text: "Dodo0123@");
+  final emailController = TextEditingController(text: "doda@gmail.com");
+  final passwordController = TextEditingController(text: "Doaa0123@@");
   var formKey = GlobalKey<FormState>();
 
   Future<void> login() async {
@@ -80,6 +80,16 @@ class LoginViewModel extends Cubit<LoginStates> {
       Navigator.of(context).pushNamed(AppRoutes.homeRoute);
     } catch (e) {
       ToastUtils.showErrorToast("Google sign-in error: $e");
+    }
+  }
+
+  Future<void> logout() async {
+    emit(LogoutLoading());
+    try {
+      await CacheHelper().removeData('token');
+      emit(LogoutSuccess());
+    } catch (error) {
+      emit(LogoutFailure(error.toString()));
     }
   }
 }

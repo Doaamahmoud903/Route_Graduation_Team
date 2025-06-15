@@ -42,7 +42,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           ToastUtils.showErrorToast(state.errorMsg);
         }else if(state is LoginSuccessState){
           ToastUtils.showSuccessToast(AppLocalizations.of(context)!.login);
-          Navigator.of(context).pushNamed(AppRoutes.homeRoute);
+          Navigator.of(context).pushNamed(AppRoutes.layoutRoute);
         }
       },
       child: Scaffold(

@@ -215,4 +215,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get phone => 'رقم الهاتف';
+
+  @override
+  String get cancel => 'الغاء';
+
+  @override
+  String get logout_ques => 'هل أنت متأكد أنك تريد تسجيل الخروج؟';
 }

@@ -9,43 +9,36 @@ import 'package:movie_app/features/movie_details/data/models/favourite_response_
 import '../../../../../../../core/cach_helper/cach_helper.dart';
 import '../../../../../../../core/errors/model/api_error_model.dart';
 
-@Injectable(as: FavouriteRemoteDataSource)
-class FavouriteRemoteDataSourceImpl extends FavouriteRemoteDataSource {
-  final ApiService apiService;
+@Injectable(as: FavouriteRemoteDataSource )
+class FavouriteRemoteDataSourceImpl extends FavouriteRemoteDataSource{
+final ApiService apiService;
   FavouriteRemoteDataSourceImpl(this.apiService);
 
   @override
-  Future<Either<Failure, FavouriteResponseDto>> addToFav(
-    String token,
-    String movieId,
-    String name,
-    double rating,
-    String imageURL,
-    String year,
-  ) async {
+  Future<Either<Failure, FavouriteResponseDto>> addToFav(String token, String movieId, String name, double rating, String imageURL, String year) async{
     try {
       final token = await CacheHelper().getData("token");
       final response = await apiService.post(
         baseUrl: ApiConstant.baseUrlPostman,
-        endPoint: ApiConstant.addToFav,
-        data: {
-          "movieId": movieId,
-          "name": name,
-          "rating": rating,
-          "imageURL": imageURL,
-          "year": year,
-        },
-        token: token,
+          endPoint: ApiConstant.addToFav,
+          data:{
+            "movieId": movieId,
+            "name": name,
+            "rating": rating,
+            "imageURL": imageURL,
+            "year": year
+          },token: token
       );
       print(response);
       return right(FavouriteResponseDto.fromJson(response));
-    } catch (error) {
+
+    }catch(error){
       if (error is DioException) {
         return Left(
-          ServerFailure.fromResponse(
-            error.response?.statusCode,
-            ApiErrorResponse.fromJson(error.response?.data),
-          ),
+            ServerFailure.fromResponse(
+                error.response?.statusCode,
+                ApiErrorResponse.fromJson(error.response?.data)
+            )
         );
       } else {
         return left(ServerFailure('Something went wrong ${error.toString()}'));
@@ -54,25 +47,23 @@ class FavouriteRemoteDataSourceImpl extends FavouriteRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, DelFavouriteResponseDto>> delMovieFromFav(
-    String token,
-    String movieId,
-  ) async {
+  Future<Either<Failure, DelFavouriteResponseDto>> delMovieFromFav(String token,String movieId) async{
     try {
-      final response = await apiService.delete(
-        baseUrl: ApiConstant.baseUrlPostman,
-        endPoint: ApiConstant.removeFromFav(movieId),
-        token: token,
-      );
-      print(response);
-      return right(DelFavouriteResponseDto.fromJson(response));
-    } catch (error) {
+        final response = await apiService.delete(
+            baseUrl: ApiConstant.baseUrlPostman,
+            endPoint: ApiConstant.removeFromFav(movieId),
+          token: token
+        );
+        print(response);
+        return right(DelFavouriteResponseDto.fromJson(response));
+
+    }catch(error){
       if (error is DioException) {
         return Left(
-          ServerFailure.fromResponse(
-            error.response?.statusCode,
-            ApiErrorResponse.fromJson(error.response?.data),
-          ),
+            ServerFailure.fromResponse(
+                error.response?.statusCode,
+                ApiErrorResponse.fromJson(error.response?.data)
+            )
         );
       } else {
         return left(ServerFailure('Something went wrong ${error.toString()}'));
@@ -81,27 +72,27 @@ class FavouriteRemoteDataSourceImpl extends FavouriteRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, FavouriteResponseDto>> getAllFav(String token) async {
+  Future<Either<Failure, FavouriteResponseDto>> getAllFav(String token) async{
     try {
       //if (await networkInfo.isConnected()) {
-      final response = await apiService.get(
-        baseUrl: ApiConstant.baseUrlPostman,
-        endPoint: ApiConstant.getAllFav,
-        token: token,
-      );
-      print(response);
-      return right(FavouriteResponseDto.fromJson(response));
+        final response = await apiService.get(
+          baseUrl: ApiConstant.baseUrlPostman,
+          endPoint: ApiConstant.getAllFav,
+          token: token
+        );
+        print(response);
+        return right(FavouriteResponseDto.fromJson(response));
       // } else{
       //   // NO Internet Connection
       //   return left(NetworkFailure("No Internet Connection"));
       // }
-    } catch (error) {
+    }catch(error){
       if (error is DioException) {
         return Left(
-          ServerFailure.fromResponse(
-            error.response?.statusCode,
-            ApiErrorResponse.fromJson(error.response?.data),
-          ),
+            ServerFailure.fromResponse(
+                error.response?.statusCode,
+                ApiErrorResponse.fromJson(error.response?.data)
+            )
         );
       } else {
         return left(ServerFailure('Something went wrong ${error.toString()}'));
@@ -110,25 +101,24 @@ class FavouriteRemoteDataSourceImpl extends FavouriteRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, DelFavouriteResponseDto>> isFav(
-    String token,
-    String movieId,
-  ) async {
+  Future<Either<Failure, DelFavouriteResponseDto>> isFav(String token,String movieId) async{
     try {
-      final response = await apiService.get(
-        baseUrl: ApiConstant.baseUrlPostman,
-        endPoint: ApiConstant.getIsFav(movieId),
-        token: token,
-      );
-      print(response);
-      return right(DelFavouriteResponseDto.fromJson(response));
-    } catch (error) {
+
+        final response = await apiService.get(
+          baseUrl: ApiConstant.baseUrlPostman,
+          endPoint: ApiConstant.getIsFav(movieId),
+          token: token
+        );
+        print(response);
+        return right(DelFavouriteResponseDto.fromJson(response));
+
+    }catch(error){
       if (error is DioException) {
         return Left(
-          ServerFailure.fromResponse(
-            error.response?.statusCode,
-            ApiErrorResponse.fromJson(error.response?.data),
-          ),
+            ServerFailure.fromResponse(
+                error.response?.statusCode,
+                ApiErrorResponse.fromJson(error.response?.data)
+            )
         );
       } else {
         return left(ServerFailure('Something went wrong ${error.toString()}'));

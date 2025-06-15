@@ -30,13 +30,19 @@ class _MovieDetailsViewBodyState extends State<MovieDetailsViewBody> {
   final FavouriteViewModel favouriteViewModel = getIt<FavouriteViewModel>();
 
   @override
+  void initState() {
+    super.initState();
+
+    movieDetailsViewModel.getMovieDetails(widget.movieId);
+    favouriteViewModel.isFav(widget.movieId.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
         BlocListener<MovieDetailsViewModel, MovieDetailsState>(
-          bloc: movieDetailsViewModel..getMovieDetails(widget.movieId),
+          bloc: movieDetailsViewModel,
           listener: (context, state) {
             if (state is MovieDetailsFaluire) {
               ToastUtils.showErrorToast(state.errorMessage);
@@ -95,13 +101,12 @@ class _MovieDetailsViewBodyState extends State<MovieDetailsViewBody> {
             BlocBuilder<FavouriteViewModel, FavouriteStates>(
               bloc: favouriteViewModel,
               builder: (context, favState) {
-                bool isFav = false;
-
-                if (favState is FavouriteSuccessGeneral) {
-                  isFav = favState.isFav;
-                } else if (favState is FavouriteSuccessSub) {
-                  isFav = favState.isFav;
-                }
+                // bool isFav = false;
+                // if (favState is FavouriteSuccessGeneral) {
+                //   isFav = favState.isFav;
+                // } else if (favState is FavouriteSuccessSub) {
+                //   isFav = favState.isFav;
+                // }
 
                 return MovieCard(
                   coverImg: movieItem.largeCoverImage ?? '',
@@ -113,7 +118,7 @@ class _MovieDetailsViewBodyState extends State<MovieDetailsViewBody> {
                   clockNum: formatRuntime(movieItem.runtime ?? 0),
                   title: movieItem.titleEnglish ?? 'No title available',
                   year: (movieItem.year ?? 0).toString(),
-                  isFav: isFav,  // خدنا الفلاج من ال Bloc state
+                  isFav: favouriteViewModel.isMovieFav,
                   onPressedSaved: () {
                     favouriteViewModel.addToFav(
                       movieItem.id.toString(),
