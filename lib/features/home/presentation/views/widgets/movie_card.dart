@@ -46,6 +46,7 @@ class MovieCard extends StatelessWidget {
                         movie.rating.toString(),
                         style: const TextStyle(
                           color: Colors.white,
+                          fontSize: 10,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

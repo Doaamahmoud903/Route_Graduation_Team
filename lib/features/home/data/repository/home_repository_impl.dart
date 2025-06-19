@@ -33,5 +33,10 @@ Future<List<Movie>> getAllMovies() async {
 Future<List<Movie>> getMovies({int page = 1}) {
   return remoteDataSource.getMovies(page: page);
 }
+@override
+Future<List<Movie>> searchMovies(String query) async {
+  return await remoteDataSource.searchMovies(query); 
+}
+
 
 }

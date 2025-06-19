@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/features/search/presentation/views/widgets/search_view_body.dart';
 
 class SearchView extends StatelessWidget {
-  static const String routeName = "HomeView";
+  static const String routeName = "searchView";
   const SearchView({super.key});
 
   @override

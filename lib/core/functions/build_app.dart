@@ -8,6 +8,7 @@ import 'package:movie_app/features/auth/presentation/views/signup_view.dart';
 import 'package:movie_app/features/layout/presentation/views/layout_view.dart';
 import 'package:movie_app/features/browse/presentation/views/browse_view.dart';
 import 'package:movie_app/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:movie_app/features/search/presentation/views/search_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/layout/presentation/manager/layout_cubit.dart';
 import '../../l10n/app_localizations.dart';
@@ -46,8 +47,8 @@ Widget buildAppRoot(BuildContext context) {
               theme: appTheme(),
               darkTheme: darkTheme(),
               themeMode: themeState.themeMode,
-              initialRoute:HomeView.routeName,
-              // OnboardingView.routeName,
+              initialRoute: SearchView.routeName,
+             // OnboardingView.routeName,
               routes: {
                 HomeView.routeName: (context) => const HomeView(),
                 LayoutView.routeName: (context) => const LayoutView(),
@@ -57,6 +58,8 @@ Widget buildAppRoot(BuildContext context) {
                 LoginView.routeName: (context) => const LoginView(),
                 SignupView.routeName: (context) => const SignupView(),
                 BrowseView.routeName: (context) => const BrowseView(),
+SearchView.routeName: (context) => const SearchView(),
+
               },
             );
           },
