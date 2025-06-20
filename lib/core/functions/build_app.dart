@@ -8,6 +8,8 @@ import 'package:movie_app/features/auth/presentation/views/signup_view.dart';
 import 'package:movie_app/features/browse/presentation/views/browse_view.dart';
 import 'package:movie_app/features/layout/presentation/views/layout_view.dart';
 import 'package:movie_app/features/onboarding/presentation/views/onboarding_view.dart';
+import '../../features/account/presentation/views/profile_view.dart';
+import '../../features/account/presentation/views/widgets/reset_password.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/layout/presentation/manager/layout_cubit.dart';
 import '../../l10n/app_localizations.dart';
@@ -70,6 +72,8 @@ Widget buildAppRoot(BuildContext context) {
                     AppRoutes.signupRoute: (context) => const SignupView(),
                     AppRoutes.browseRoute: (context) => BrowseView(),
                     AppRoutes.layoutRoute: (context) => const LayoutView(),
+                    AppRoutes.profileRoute: (context) => const ProfileView(),
+                    AppRoutes.resetPasswordRoute: (context) => const ResetPasswordScreen(),
                   },
                 );
               },

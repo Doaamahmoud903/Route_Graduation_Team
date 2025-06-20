@@ -1,7 +1,7 @@
 class ProfileResponse {
   ProfileResponse({
-      this.message, 
-      this.data,
+    this.message,
+    this.data,
     this.status,});
 
   ProfileResponse.fromJson(dynamic json) {
@@ -27,15 +27,15 @@ class ProfileResponse {
 
 class Data {
   Data({
-      this.id, 
-      this.email, 
-      this.password, 
-      this.name, 
-      this.phone, 
-      this.avaterId, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.v,
+    this.id,
+    this.email,
+    this.password,
+    this.name,
+    this.phone,
+    this.avaterId,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
     this.watchListCount,
     this.historyCount,
   });
@@ -108,5 +108,4 @@ class Data {
       historyCount: historyCount ?? this.historyCount,
     );
   }
-
 }

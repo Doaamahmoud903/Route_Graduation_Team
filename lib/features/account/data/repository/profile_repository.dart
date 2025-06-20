@@ -1,4 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:movie_app/features/account/data/models/ProfileResponse.dart';
+
+import '../../../../core/errors/failure.dart';
 
 abstract class ProfileRepository {
   Future<ProfileResponse> getProfile();

@@ -68,3 +68,4 @@ class FavouriteViewModel extends Cubit<FavouriteStates> {
   }
 
 }
+

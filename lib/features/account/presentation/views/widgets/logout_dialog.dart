@@ -9,7 +9,7 @@ import '../../../../../core/theming/color_manager.dart';
 import '../../../../../core/utils/toast_utils.dart';
 
 void showLogoutDialog(BuildContext context) {
-    LoginViewModel logoutViewModel = getIt<LoginViewModel>();
+  LoginViewModel logoutViewModel = getIt<LoginViewModel>();
 
   showDialog(
     context: context,

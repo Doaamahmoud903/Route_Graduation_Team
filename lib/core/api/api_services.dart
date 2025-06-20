@@ -127,19 +127,20 @@ class ApiService {
 
   // PATCH
   Future<Map<String, dynamic>> patch({
+    String? baseUrl,
     required String endPoint,
     required Map<String, dynamic> data,
     String? token,
     Map<String, dynamic>? queryParameters,
   }) async {
     var options = _getOptionsWithToken(token);
+    var url = '${baseUrl ?? ApiConstant.baseUrl}$endPoint';
     var response = await _dio.patch(
-      '$_baseUrl$endPoint',
+      url, // Use the correctly constructed URL
       data: data,
       options: options,
       queryParameters: queryParameters,
     );
     return response.data;
-
-}
+  }
 }

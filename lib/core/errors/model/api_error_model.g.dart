@@ -13,4 +13,7 @@ ApiErrorResponse _$ApiErrorResponseFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ApiErrorResponseToJson(ApiErrorResponse instance) =>
-    <String, dynamic>{'message': instance.message, 'status': instance.status};
+    <String, dynamic>{
+      'message': instance.message,
+      'status': instance.status,
+    };

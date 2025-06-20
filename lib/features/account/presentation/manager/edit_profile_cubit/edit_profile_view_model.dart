@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:flutter/foundation.dart';
-import '../../../../../core/services/secure_storage.dart';
+
+import '../../../../../core/cach_helper/cach_helper.dart';
 import '../../../../../core/utils/toast_utils.dart';
 import '../../../data/models/ProfileResponse.dart';
 import '../../../data/repository/profile_repository.dart';
@@ -12,7 +12,7 @@ import 'edit_profile_states.dart';
 class EditProfileViewModel extends Cubit<EditProfileStates> {
   final ProfileRepository profileRepository;
   final ProfileResponse? initialProfileData;
-  final SecureStorage secureStorage;
+  final CacheHelper cacheHelper;
 
   late final TextEditingController nameController;
   late final TextEditingController phoneController;
@@ -21,7 +21,7 @@ class EditProfileViewModel extends Cubit<EditProfileStates> {
   EditProfileViewModel({
     required this.profileRepository,
     @factoryParam this.initialProfileData,
-    required this.secureStorage,
+    required this.cacheHelper,
   }) : super(EditProfileInitialStates()) {
     nameController = TextEditingController(
       text: initialProfileData?.data?.name ?? '',
@@ -40,34 +40,53 @@ class EditProfileViewModel extends Cubit<EditProfileStates> {
     required String email,
     required int avaterId,
   }) async {
-    emit(EditProfileLoadingStates()); // Corrected to singular state
+    emit(EditProfileLoadingStates());
     try {
+      String formattedPhone = phone;
+      String digitsOnly = phone.replaceAll(RegExp(r'[^\d+]'), '');
+      if (digitsOnly.startsWith('01') && digitsOnly.length == 11) {
+        formattedPhone = '+20${digitsOnly.substring(1)}';
+      } else if (digitsOnly.startsWith('+2001') && digitsOnly.length == 14) {
+        formattedPhone = '+20${digitsOnly.substring(4)}';
+      } else if (!digitsOnly.startsWith('+')) {
+        if (digitsOnly.startsWith('0')) {
+          formattedPhone = '+20${digitsOnly.substring(1)}';
+        } else {
+          formattedPhone = '+20$digitsOnly';
+        }
+      } else {
+        formattedPhone = digitsOnly;
+      }
+
       final updatedProfile = await profileRepository.updateProfile(
         name: name,
-        phone: phone,
+        phone: formattedPhone,
         email: email,
         avaterId: avaterId,
       );
-      emit(EditProfileSuccessStates(message: 'Profile updated successfully!', updatedProfile: updatedProfile)); // Corrected to singular state
-      // ToastUtils.showSuccessToast is often better triggered from the UI listener
-      // but if you want it here as well, it's fine.
+      emit(EditProfileSuccessStates(message: 'Profile updated successfully!',
+          updatedProfile: updatedProfile));
+      ToastUtils.showSuccessToast('Profile updated successfully!');
     } catch (e) {
       debugPrint('Error in EditProfileViewModel.updateProfile: $e');
       final errorMessage = e.toString().contains('Exception:')
           ? e.toString().replaceFirst('Exception: ', '')
           : 'Failed to update profile: ${e.toString()}';
-      emit(EditProfileErrorStates(errorMessage: errorMessage)); // Corrected to singular state
+      emit(EditProfileErrorStates(errorMessage: errorMessage));
       ToastUtils.showErrorToast(errorMessage);
     }
   }
 
   Future<void> deleteProfile() async {
-    emit(ProfileDeleteLoadingStates()); // Corrected to singular state
+    emit(ProfileDeleteLoadingStates());
     try {
       final response = await profileRepository.deleteProfile();
-      if (response['status'] == true) { // Assuming 'status' is a boolean
-        await secureStorage.deleteToken();
-        emit(ProfileDeleteSuccessStates(message: response['message'] ?? 'Profile deleted successfully!')); // Corrected to singular state
+      if (response['status'] == true) {
+        await cacheHelper.removeData("token");
+        emit(ProfileDeleteSuccessStates(
+            message: response['message'] ?? 'Profile deleted successfully!'));
+        ToastUtils.showSuccessToast(
+            response['message'] ?? 'Profile deleted successfully!');
       } else {
         throw Exception(response['message'] ?? 'Failed to delete profile.');
       }
@@ -76,7 +95,7 @@ class EditProfileViewModel extends Cubit<EditProfileStates> {
       final errorMessage = e.toString().contains('Exception:')
           ? e.toString().replaceFirst('Exception: ', '')
           : 'Failed to delete profile: ${e.toString()}';
-      emit(ProfileDeleteErrorStates(errorMessage: errorMessage)); // Corrected to singular state
+      emit(ProfileDeleteErrorStates(errorMessage: errorMessage));
       ToastUtils.showErrorToast(errorMessage);
     }
   }
@@ -85,7 +104,7 @@ class EditProfileViewModel extends Cubit<EditProfileStates> {
   Future<void> close() {
     nameController.dispose();
     phoneController.dispose();
-    emailController.dispose(); // Dispose email controller
+    emailController.dispose();
     return super.close();
   }
 }

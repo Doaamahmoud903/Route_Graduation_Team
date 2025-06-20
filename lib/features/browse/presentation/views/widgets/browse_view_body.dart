@@ -8,7 +8,7 @@ import 'package:movie_app/features/movie_details/presentation/views/movie_detail
 import '../../../../../core/utils/assets_manager.dart';
 import '../../../../../core/utils/types.dart';
 import '../../../../../core/widgets/custom_loding_indicator.dart';
-import '../../../../account/presentation/views/widgets/logout_dialog.dart';
+
 
 class BrowseViewBody extends StatefulWidget {
   const BrowseViewBody({super.key});

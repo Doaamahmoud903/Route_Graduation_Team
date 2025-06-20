@@ -1,9 +1,14 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:movie_app/features/account/data/data_sources/profile_remote_data_source.dart';
+import 'package:movie_app/features/account/data/data_sources/remote/profile_remote_data_source.dart';
 import 'package:movie_app/features/account/data/models/ProfileResponse.dart';
 import 'package:movie_app/features/account/data/repository/profile_repository.dart';
 
-@Injectable(as: ProfileRepository)
+import '../../../../core/errors/failure.dart';
+
+///@Injectable(as: ProfileRepository)
+@LazySingleton(as: ProfileRepository)
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remoteDataSource;
 

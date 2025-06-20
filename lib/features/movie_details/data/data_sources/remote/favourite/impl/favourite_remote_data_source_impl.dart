@@ -8,6 +8,7 @@ import 'package:movie_app/features/movie_details/data/data_sources/remote/favour
 import 'package:movie_app/features/movie_details/data/models/favourite_response_dto.dart';
 import '../../../../../../../core/cach_helper/cach_helper.dart';
 import '../../../../../../../core/errors/model/api_error_model.dart';
+import '../../../../models/all_favourites_response_dto.dart';
 
 @Injectable(as: FavouriteRemoteDataSource )
 class FavouriteRemoteDataSourceImpl extends FavouriteRemoteDataSource{
@@ -72,7 +73,7 @@ final ApiService apiService;
   }
 
   @override
-  Future<Either<Failure, FavouriteResponseDto>> getAllFav(String token) async{
+  Future<Either<Failure, AllFavouritesResponseDto>> getAllFav(String token) async{
     try {
       //if (await networkInfo.isConnected()) {
         final response = await apiService.get(
@@ -81,7 +82,7 @@ final ApiService apiService;
           token: token
         );
         print(response);
-        return right(FavouriteResponseDto.fromJson(response));
+        return right(AllFavouritesResponseDto.fromJson(response));
       // } else{
       //   // NO Internet Connection
       //   return left(NetworkFailure("No Internet Connection"));

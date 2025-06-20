@@ -1,6 +1,8 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@injectable
 class CacheHelper {
   static final CacheHelper _instance = CacheHelper._internal();
 
@@ -39,15 +41,15 @@ class CacheHelper {
       // For complex data types, use Hive
       var box = await Hive.openBox('complexDataBox');
       try {
-        box.put(key, value);
+        await box.put(key, value);
         return true;
       } catch (e) {
         // Handle any exceptions
         print('Error saving data in Hive: $e');
         return false;
-      } finally {
+      } /*finally {
         await box.close();
-      }
+      }*/
     }
   }
 

@@ -38,7 +38,7 @@ class CustomButton extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(logo!),
+            Flexible(child: Image.asset(logo!)),
             SizedBox(width: width*0.01,),
             Text(btnName,
               style: Styles.textStyle20w4.copyWith(
