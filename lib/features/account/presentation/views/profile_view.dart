@@ -13,6 +13,6 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return  BlocProvider<ProfileViewModel>(
         create: (context) => getIt<ProfileViewModel>(),
-        child: const Scaffold(body: ProfileViewBody())); // Added const
+        child: const Scaffold(body: ProfileViewBody()));
   }
 }

@@ -2,7 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:movie_app/core/widgets/custom_button.dart';
 import 'package:movie_app/core/widgets/custom_loding_indicator.dart';
+import 'package:movie_app/features/account/presentation/views/widgets/logout_dialog.dart';
 import 'package:movie_app/l10n/app_localizations.dart';
 import '../../../../../core/di/di.dart';
 import '../../../../../core/theming/color_manager.dart';
@@ -190,6 +192,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                             },
                           ),
                         ),
+                        // CustomButton(
+                        //     btnName: "Logout",
+                        //     onPressed: ()=>showLogoutDialog(context),
+                        //     bgColor: ColorManager.redColor,
+                        //     fgColor: Colors.white,
+                        //     textColor: Colors.white)
 
                       ],
                     ),

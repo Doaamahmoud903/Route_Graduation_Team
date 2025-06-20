@@ -15,7 +15,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
     const HomeView(),
      SearchView(),
      BrowseView(),
-    const ProfileView(),
+     ProfileView(),
   ];
 
   int currentIndex = 0;

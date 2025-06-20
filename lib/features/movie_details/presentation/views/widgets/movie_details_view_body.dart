@@ -15,6 +15,7 @@ import 'package:movie_app/features/movie_details/presentation/manager/movie_deta
 import 'package:movie_app/features/movie_details/presentation/views/widgets/movie_card.dart';
 
 import '../../../../../core/di/di.dart';
+import '../../../../account/presentation/manager/watch_list_cubit/watch_list_view_model.dart';
 
 
 class MovieDetailsViewBody extends StatefulWidget {
@@ -28,13 +29,14 @@ class MovieDetailsViewBody extends StatefulWidget {
 class _MovieDetailsViewBodyState extends State<MovieDetailsViewBody> {
   final MovieDetailsViewModel movieDetailsViewModel = getIt<MovieDetailsViewModel>();
   final FavouriteViewModel favouriteViewModel = getIt<FavouriteViewModel>();
+  late final WatchListViewModel watchListViewModel;
 
   @override
   void initState() {
     super.initState();
-
     movieDetailsViewModel.getMovieDetails(widget.movieId);
     favouriteViewModel.isFav(widget.movieId.toString());
+    watchListViewModel = getIt<WatchListViewModel>();
   }
 
   @override
@@ -57,6 +59,7 @@ class _MovieDetailsViewBodyState extends State<MovieDetailsViewBody> {
               print(state.errorMsg);
             } else if (state is FavouriteSuccessSub || state is FavouriteSuccessGeneral) {
               ToastUtils.showSuccessToast("Success");
+              watchListViewModel.fetchWatchList();
             }
           },
         ),

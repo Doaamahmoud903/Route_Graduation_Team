@@ -40,7 +40,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           ToastUtils.showErrorToast(state.errorMsg.first);
         }else if(state is SignupSuccessState){
           ToastUtils.showSuccessToast(AppLocalizations.of(context)!.register_success);
-          Navigator.of(context).pushNamed(AppRoutes.homeRoute);
+          Navigator.of(context).pushReplacementNamed(AppRoutes.loginRoute);
         }
       },
       child: Scaffold(

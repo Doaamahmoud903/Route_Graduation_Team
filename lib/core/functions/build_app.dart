@@ -57,9 +57,8 @@ Widget buildAppRoot(BuildContext context) {
                   darkTheme: darkTheme(),
                   themeMode: themeState.themeMode,
                   initialRoute:
-                      token != null
-                          ? AppRoutes.layoutRoute
-                          : AppRoutes.onboardingRoute,
+                      AppRoutes.layoutRoute,
+
                   routes: {
                     AppRoutes.homeRoute: (context) => const HomeView(),
                     AppRoutes.onboardingRoute:

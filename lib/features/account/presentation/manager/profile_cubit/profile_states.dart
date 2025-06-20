@@ -12,3 +12,4 @@ class ProfileErrorStates extends ProfileStates {
   String errorMessage;
   ProfileErrorStates({required this.errorMessage});
 }
+
