@@ -40,5 +40,10 @@ class AssetManager{
   static const String watchNow = "assets/images/watchNow.png";
   static const String arrowBack = "assets/images/arrowBack.png";
 
+static const String explore_select = "assets/images/explore_select.png";
+  static const String search_select = "assets/images/search_select.png";
+  static const String Profiel_select = "assets/images/Profiel_select.png";
+  static const String explore_unselect = "assets/images/explore_unselect.png";
+  static const String home_select = "assets/images/home_select.png";
 
 }
